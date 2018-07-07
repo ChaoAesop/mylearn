@@ -1,0 +1,19 @@
+<!doctype html>
+<html ng-app="MyModule">
+<head>
+    <meta charset="UTF-8">
+    <title>指令的scope的绑定策略 : $方式：传递一个来自父的scope的函数，稍后调用</title>
+    <script src="../lib/angular1.3.0.14/angular.min.js"></script>
+    <script src="js/scopeDirective4.js"></script>
+
+</head>
+<body>
+<div ng-controller="MyCtrl">
+    <greeting greet="sayHello(name)"></greeting>
+    <greeting greet="sayHello(name)"></greeting>
+    <greeting greet="sayHello(name)"></greeting>
+</div>
+</body>
+<script src="framework/angular-1.3.0.14/angular.js"></script>
+<script src="ScopeAnd.js"></script>
+</html>

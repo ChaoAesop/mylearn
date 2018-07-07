@@ -1,0 +1,80 @@
+// 设置流程变量  
+    @Test  
+    public void setProcessVariables() {  
+        String processInstanceId = "1704";  
+        // 任务的办理人  
+        String assignee = "李四";  
+        TaskService taskService = processEngine.getTaskService(); // 获取任务的service，设置和获取流程变量  
+        // 查询当前办理人的任务ID  
+        Task task = taskService.createTaskQuery()  
+                .processInstanceId(processInstanceId).taskAssignee(assignee)  
+                .singleResult();  
+        // 设置流程变量（基本类型）  
+        // 使用任务ID，流程变量的名称和流程变量的值，设置流程变量  
+        taskService.setVariable(task.getId(), "请假人", assignee);  
+        taskService.setVariableLocal(task.getId(), "请假天数", 3);  
+        taskService.setVariable(task.getId(), "请假日期", new Date());  
+  
+        System.out.println("设置成功");  
+    }  
+	
+// 获取流程变量  
+    @Test  
+    public void getProcessVariables() {  
+        String processInstanceId = "1701";  
+        // 任务的办理人  
+        String assignee = "李四";  
+        TaskService taskService = processEngine.getTaskService(); // 获取任务的service，设置和获取流程变量  
+        // 查询当前办理人的任务ID  
+        Task task = taskService.createTaskQuery()  
+                .processInstanceId(processInstanceId).taskAssignee(assignee)  
+                .singleResult();  
+        // 获取流程变量（基本类型）方式一  
+        // 使用任务ID，流程变量的名称获取流程变量的值  
+        String person = (String) taskService.getVariable(task.getId(), "请假人");  
+        Integer day = (Integer) taskService.getVariableLocal(task.getId(),  
+                "请假天数");  
+        Date date = (Date) taskService.getVariable(task.getId(), "请假日期");  
+  
+        System.out.println(person + "  " + day + "   " + date);  
+        System.out.println("获取成功");  
+    }  
+	
+// 设置流程变量  
+    @Test  
+    public void setProcessVariables() {  
+        String processInstanceId = "1704";  
+        // 任务的办理人  
+        String assignee = "李四";  
+        TaskService taskService = processEngine.getTaskService(); // 获取任务的service，设置和获取流程变量  
+        // 查询当前办理人的任务ID  
+        Task task = taskService.createTaskQuery()  
+                .processInstanceId(processInstanceId).taskAssignee(assignee)  
+                .singleResult();  
+  
+        // 设置流程变量（javabean类型）  
+        Person p = new Person();  
+        p.setId(1);  
+        p.setName("huohuo");  
+        taskService.setVariable(task.getId(), "人员信息", p);  
+  
+        System.out.println("设置成功");  
+    }  
+	
+// 获取流程变量  
+    @Test  
+    public void getProcessVariables() {  
+        // 实例ID  
+        String processInstanceId = "2601";  
+        // 任务的办理人  
+        String assignee = "李四";  
+        TaskService taskService = processEngine.getTaskService(); // 获取任务的service，设置和获取流程变量  
+        // 查询当前办理人的任务ID  
+        Task task = taskService.createTaskQuery()  
+                .processInstanceId(processInstanceId).taskAssignee(assignee)  
+                .singleResult();  
+        // 获取流程变量（javabean类型) 方式二  
+        Person person = (Person) taskService.getVariable(task.getId(), "人员信息");  
+        System.out.println(person.getId() + "           " + person.getName());  
+        System.out.println("获取成功");  
+    }  

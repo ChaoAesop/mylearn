@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令，显示，隐藏</title>
+    <script src="../lib/angular1.3.0.14/angular.js"></script>
+    <script>
+        var myModule = angular.module('MyModule',[]);
+        myModule.directive('expander',function () {
+            return {
+                restrict:'AE',
+                replace:true,
+                templateUrl:'tpls/showHide.html',
+                link:function (scope,element,attrs) {
+                    //内部的域
+                    scope.showMe=false;
+                    scope.mytoggle=function () {
+                        scope.showMe = !scope.showMe;
+                    }
+                }
+            };
+        });
+        
+        
+    </script>
+</head>
+<body ng-app="MyModule">
+<div>
+    <expander></expander>
+</div>
+</body>
+</html>

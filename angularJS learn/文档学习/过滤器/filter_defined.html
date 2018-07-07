@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义过滤器</title>
+    <script type="text/javascript" src="../lib/angular1.3.0.14/angular.min.js"></script>
+    <script type="text/javascript" src="js/filter_defined.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myCtrl">
+        <p>反转前：{{msg}}</p>
+        <p>反转后：{{msg | reverser}}</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+1.安装git 
+
+2.设置用户名与邮箱（用户标识，必要）
+	$ git config --global user.name "zhangguo"  #名称
+	$ git config --global user.email zhangguo@qq.com   #邮箱
+	$ git config -l #可查看详细全局配置，是否设置成功
+	
+3.关联项目到github
+	方式一（克隆一个版本库）：
+		直接git clone <url>
+	方式二（增加一个远程）：
+		1）进入项目 打开 git bash 输入： $ git init
+		2） 指定github 上的库
+			$ git remote add origin git@github.com:用户名/仓库名.git
+
+4.添加忽略文件.gitignore
+	创建.gitignore文件 参考https://github.com/github/gitignore
+	
+5.提交
+	$ git add .
+	$ git commit -m '备注'
+	
+6.上传到github 
+	$ git push origin master
+	
+*配置SSH keys
+	1）检查现有的SSH keys
+		$ ls -al ~/.ssh
+	2）生成一个新的SSH密钥
+		$ ssh-keygen -t rsa -b 4096 -C "chao_c_c@163.com" 使用同github上的邮箱 
+			-> Enten 回车使用默认路径
+			-> 设置密码 两次
+			-> 完成
+	3）将生成的SSH密钥添加到SSH代理
+		（确保ssh-agent正在运行）
+		$ eval $(ssh-agent -s) 启动ssh-agent
+		$ ssh-add ~/.ssh/id_rsa 添加密钥->输入密码即可
+	3）在您的GitHub帐户中添加一个新的SSH密钥
+		->复制密钥： 可输入指令复制 （$ clip < ~/.ssh/id_rsa.pub） 或直接打开密钥文件id_rsa.pub进行复制
+		-> 打开github 设置密钥
+	

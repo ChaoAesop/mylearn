@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <!-- 用注解进行依赖注入 -->
+  <context:annotation-config />
+
+  <!--用注解让spring管理bean (service dao 层) 在主容器中（applicationContext.xml），将Controller的注解打消掉 -->
+  <context:component-scan base-package="com.hf.finance">
+    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+  </context:component-scan>
+
+  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+  <!-- 数据源 -->
+  <context:property-placeholder location="classpath:jdbc.properties"/>
+  <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <property name="driverClass" value="${jdbc.driver}" />
+    <property name="jdbcUrl" value="${jdbc.url}" />
+    <property name="user" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+
+    <property name="initialPoolSize" value="${connection_pools.initial_pool_size}" />
+    <property name="minPoolSize" value="${connection_pools.min_pool_size}" />
+    <property name="maxPoolSize" value="${connection_pools.max_pool_size}" />
+    <property name="maxIdleTime" value="${connection_pools.max_idle_time}" />
+    <property name="acquireIncrement" value="${connection_pools.acquire_increment}" />
+    <property name="checkoutTimeout" value="${connection_pools.checkout_timeout}" />
+  </bean>
+
+  <!-- JPA实体管理器工厂 -->
+  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="persistenceProvider">
+      <bean id="persistenceProvider" class="org.hibernate.jpa.HibernatePersistenceProvider" />
+    </property>
+    <property name="packagesToScan" value="com.hf.finance.entity" /><!--扫描实体-->
+    <property name="jpaVendorAdapter">
+      <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="generateDdl" value="true" />
+      </bean>
+    </property>
+    <property name="jpaDialect">
+      <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+    </property>
+    <property name="jpaProperties">
+      <props>
+        <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+        <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+        <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+        <prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+        <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+        <prop key="hibernate.jdbc.fetch_size">${hibernate.jdbc.fetch_size}</prop>
+        <prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+        <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+        <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+        <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+        <prop key="hibernate.use_sql_comments">false</prop>
+        <prop key="hibernate.connection.isolation">2</prop>
+        <prop key="javax.persistence.validation.mode">none</prop>
+      </props>
+    </property>
+  </bean>
+  <!-- 配置事务管理器 -->
+  <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="entityManagerFactory" />
+  </bean>
+  <!-- 启用 annotation事务 -->
+  <tx:annotation-driven transaction-manager="txManager" proxy-target-class="false" />
+
+</beans>

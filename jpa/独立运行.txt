@@ -1,0 +1,3 @@
+EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPADemoPU"); 
+
+EntityManager entityManger = emf.createEntityManager(); 

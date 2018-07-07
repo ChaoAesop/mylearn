@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>指令的scope的绑定策略 : @方式：将属性的值作为字符串进行传递</title>
+    <script src="../lib/angular1.3.0.14/angular.min.js"></script>
+    <script src="js/scopeDirective2.js"></script>
+
+</head>
+<body ng-app="MyModule">
+
+    <!--控制器和指令的数据传递-->
+    <div ng-controller="MyCtrl">
+        <drink flavor="{{ctrlFlavor}}"></drink>
+    </div>
+</body>
+</html>

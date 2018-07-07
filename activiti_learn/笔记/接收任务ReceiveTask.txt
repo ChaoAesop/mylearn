@@ -1,0 +1,7 @@
+ //3.查询执行对象表,使用流程实例ID和当前活动的名称（receivetask1）  
+        String processInstanceId = pi.getId();//得到流程实例ID  
+        Execution execution1 = processEngine.getRuntimeService()  
+                .createExecutionQuery()  
+                .processInstanceId(processInstanceId)//流程实例ID  
+                .activityId("receivetask1")//当前活动的名称  
+                .singleResult();  

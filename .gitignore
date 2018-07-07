@@ -1,0 +1,12 @@
+*.swp
+*.iws
+*.ipr
+*.iml
+.gradle
+
+classes/
+out/
+target/
+bin/
+.idea/
+.gradle/

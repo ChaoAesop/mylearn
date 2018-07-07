@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>指令的复用，控制器与指令的交互</title>
+    <script src="../lib/angular1.3.0.14/angular.min.js"></script>
+    <script src="js/loader2.js"></script>
+
+</head>
+<body ng-app="loaderModule">
+    <loader ng-controller="MyCtrl1" howtoload="loadDataFn1()">
+        <h2>加载张三的数据</h2>
+    </loader>
+
+    <loader ng-controller="MyCtrl2" howtoload="loadDataFn2()">
+        <h2>加载李四的数据</h2>
+    </loader>
+</body>
+</html>

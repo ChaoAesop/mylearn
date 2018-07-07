@@ -1,0 +1,28 @@
+参考地址：
+	https://www.cnblogs.com/zhcncn/p/4030078.html
+	或
+	https://blog.csdn.net/qq_35573689/article/details/73223740
+
+1. 使用编译安装方式，需要下载gz压缩包，地址https://mirrors.edge.kernel.org/pub/software/scm/git/
+	具体方式：进入git官网https://git-scm.com ，找到Downloads ->Linux/Unix -> 找到标题Red Hat Enterprise Linux,xxxx
+	-> 点击  “ download a tarball ” ->找到对应的xxx.gz文件点击下载
+
+2.打开Linux 安装依赖
+	$ sudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-devel
+
+3.解压缩源码 xxx.gz文件
+	$ tar -xzvf xxx.gz
+
+4.编译安装，将其安装在 “/usr/local/git”目录下。
+	$ make prefix=/usr/local/git all
+	$ sudo make prefix=/usr/local/git install
+
+5.修改环境配置
+	$ sudo vim /etc/profile
+	按i, 然后在文件的最后一行，添加下面的内容，然后保存退出 （按ESC 输入 :wq!）：
+		export PATH=/usr/local/git/bin:$PATH
+	$ source /etc/profile
+	
+6.设置git 的用户名和邮箱
+	$ git config --global user.name "Your Name"
+	$ git config --global user.email "youremail@domain.com"

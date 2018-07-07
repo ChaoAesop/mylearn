@@ -1,0 +1,24 @@
+﻿<!doctype html>
+<html ng-app="HelloAngular">
+    <head>
+		<title>特性：模块化</title>
+		<meta charset="utf-8">
+    </head>
+    <body>
+        <div ng-controller="helloController">
+            <p>{{greeting.text}},Angular</p>
+        </div>
+    </body>
+    <script src="js/angular-1.3.0.js"></script>
+	<script type="text/javascript">
+		var myModule = angular.module("HelloAngular", []);
+
+		myModule.controller("helloController", ['$scope',
+			function xxxController($scope) {
+				$scope.greeting = {
+					text: 'Hello'
+				};
+			}
+		]);
+	</script>
+</html>

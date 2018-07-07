@@ -1,0 +1,34 @@
+/**
+ * Created by Administrator on 2017/4/20 0020.
+ */
+var UserInfoModule = angular.module("UserInfoModule",[]);
+UserInfoModule.controller("UserInfoCtrl",["$scope",function($scope){
+    //关联表单的数据
+    $scope.userInfo={
+        email:"chao_c_c@163.com",
+        password:'123456789',
+        autoLogin:true
+    };
+    //获取表单的数据
+    $scope.getFormData=function(){
+        console.log($scope.userInfo.email);
+        console.log($scope.userInfo.password);
+        console.log($scope.userInfo.autoLogin);
+    };
+    //设置表单的值
+    $scope.setFormData=function(){
+        $scope.userInfo={
+            email:"1127890096@qq.com",
+            password:'99999',
+            autoLogin:false
+        }
+    };
+    //重置表单
+    $scope.resetForm=function(){
+        $scope.userInfo={
+            email:"chao_c_c@163.com",
+            password:'123456789',
+            autoLogin:true
+        };
+    };
+}]);

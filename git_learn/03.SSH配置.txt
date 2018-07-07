@@ -1,0 +1,28 @@
+1.生成 SSH key
+ $ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+2.添加SSH key到 ssh-agent
+ $ eval $(ssh-agent -s)  （启动ssh-agent）
+ $ ssh-add ~/.ssh/id_rsa
+ 
+3.添加 SSH key 到github账户
+
+4.测试是否成功
+ $ ssh -T git@github.com
+  
+注：以上操作表明我们本地到github上可以实现无需输入用户名密码就可以提交文件
+
+*可更改已有的密钥密码，不必重新配置ssh密钥对
+$ ssh-keygen -p
+
+
+【常见问题】
+	1）添加完SSH密钥后，把项目推送到github，还需要输入账号密码？
+		确保使用的是git协议的url：输入git remote -v 查看，有https://打头的就不是git协议
+		这时，你可以使用 git remote set-url 来调整你的url。
+		例如：
+		git remote set-url origin git@github.com:someaccount/someproject.git
+
+【参考】 
+	https://help.github.com/articles/connecting-to-github-with-ssh/  Connecting to GitHub with SSH
+	https://www.cnblogs.com/z-x-y/p/8284504.html  github使用ssh秘钥的好处以及设置（转）

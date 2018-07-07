@@ -1,0 +1,2 @@
+流程开发Activiti 与SpringMVC整合实例 http://www.cnblogs.com/xiaochangwei/p/5443173.html
+Activiti 5.16 用户手册中文版：http://www.mossle.com/docs/activiti/index.html

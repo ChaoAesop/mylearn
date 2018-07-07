@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/angular1.3.0.14/angular.min.js"></script>
+    <script>
+        var app = angular.module('app',[]);
+        app.controller('ctrl', ['$scope',function ($scope) {
+            $scope.mydate=new Date();
+            $scope.showDate = function () {
+                console.info($scope.mydate);
+            }
+        }]);
+        app.directive('myDir',function () {
+            return {
+                restrict:'EA',
+                scope:{
+                    date:'=',
+                    change:'&',
+                },
+                template:'<div class="xxx">-{{test}}-</div> <br> ' +
+                '<input type="date" ng-change="changeI()" ng-model="date">',
+                link:function (scope,elem,att) {
+                    /*比controller后执行*/
+                    scope.test = scope.test + ',from link';
+                },
+                controller:function ($scope) {
+                    $scope.test = 'form controller';
+                    $scope.changeI = function(){
+                        $scope.$apply();
+                        $scope.change();
+//                        $scope.$applyAsync("");
+
+                    }
+
+                }
+                /*编译之前执行控制器（controller），编译之后执行链接（link）。*/
+            }
+        });
+    </script>
+
+</head>
+<body ng-app="app">
+    <div ng-controller="ctrl">
+        <my-dir date="mydate" change="showDate()"></my-dir>
+        <button ng-click="showDate()">显示</button>
+    </div>
+</body>
+</html>

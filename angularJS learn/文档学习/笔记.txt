@@ -1,0 +1,22 @@
+指令：
+指令中scope与外部scope独立，controller中的scope与link参数中的scope一致，并且先执行controller再执行link,所以不确定的话可以在controller中修改然后观察link函数中scope中的值，如果也变了，那就说明controller与link中的scope一样.(验证过，确实一起变了)
+
+$http使用POST方式传递参数
+$http({
+            method:'POST',
+            url:url,
+            data:param,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            transformRequest: function(obj) {
+                var str = [];
+                for (var s in obj) {
+                    str.push(encodeURIComponent(s) + "=" + encodeURIComponent(obj[s]));
+                }
+                return str.join("&");
+            }
+        }).then。。。。。
+		
+【】
+ng-model是用于表单元素的，支持双向绑定。对普通元素无效；
+ng-bind用于普通元素，不能用于表单元素，应用程序单向地渲染数据到元素；
+当ng-bind和{{}}同时使用时，ng-bind绑定的值覆盖该元素的内容。

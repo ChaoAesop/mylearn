@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件化应用构建</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app1">
+        <ol>
+            <!--
+              【重用模板组件的使用】
+              现在我们为每个 todo-item 提供 todo 对象
+              todo 对象是变量，即其内容可以是动态的。
+              我们也需要为每个组件提供一个“key”，稍后再
+              作详细解释。
+            -->
+            <todo-item
+                v-for="item in groceryList"
+                v-bind:todo="item"
+                v-bind:key="item.id">
+            </todo-item>
+        </ol>
+
+        <!--【限制绑定的改变】-->
+        <input type="text" v-model="msg" />
+        <span v-once>这个将不会被改变：{{msg}}</span>
+
+        <!--
+            【插入html】
+            不能使用 v-html 来复合局部模板
+        -->
+        <hr>
+        <div>
+            <p>普通文本输出:{{rawHtml}}</p>
+            <p>使用了v-html:<span v-html="rawHtml"></span></p>
+        </div>
+
+        <hr>
+        <!--【html 特性使用 Mustache 语法】-->
+        <div v-bind:id="dynamicId"></div>
+        <button v-bind:disabled="isButtonDisabled">按钮</button>
+
+        <!-- 【监听点击事件】 -->
+        <hr>
+        <a href="#" v-on:click="doSomething">做事情</a><br>
+        <a href="#" @click="doSomething">做大事情</a>
+
+        <!--【监听特殊事件】当点击表单提交后触发-->
+        <hr>
+        <form v-on:submit.prevent="onSumbit">
+            <input type="text"><br>
+            <input type="submit">
+        </form>
+
+        <!--【计算属性】-->
+        <hr>
+        <div>
+            <p>反转输出消息：{{reversedMessage}}</p>
+            <!--使用方法的方式-->
+            <p>Reversed message: "{{ reversedMessage2() }}"</p>
+        </div>
+
+    </div>
+</body>
+<script src="../js/demo2-component.js"></script>
+</html>

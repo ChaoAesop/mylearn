@@ -1,0 +1,112 @@
+【常用操作指令】
+# 下载远程仓库的所有变动
+$ git fetch [remote]
+例：取回origin主机的master分支。
+$ git fetch origin master
+
+# 显示所有远程主机的网址
+$ git remote -v
+
+# 显示某个远程仓库的信息
+$ git remote show [remote]
+
+# 增加一个新的远程仓库，并命名
+$ git remote add [shortname] [url]
+
+# 取回远程仓库的变化，并与本地分支合并
+$ git pull [remote] [branch]
+
+# 上传本地指定分支到远程仓库
+$ git push [remote] [branch]
+
+# 强行推送当前分支到远程仓库，即使有冲突
+$ git push [remote] --force
+
+# 推送所有分支到远程仓库
+$ git push [remote] --all
+
+#简单查看远程---所有仓库
+git remote  （只能查看远程仓库的名字）
+
+#查看单个仓库
+git  remote show [remote-branch-name]
+
+#新建远程仓库
+git remote add [branchname]  [url]
+
+#修改远程仓库
+git remote rename [oldname] [newname]
+
+#删除远程仓库
+git remote rm [remote-name]
+
+#获取远程仓库数据
+git fetch [remote-name] (获取仓库所有更新，但不自动合并当前分支)
+git pull (获取仓库所有更新，并自动合并到当前分支)
+
+#上传数据，如git push origin master
+git push [remote-name] [branch]
+
+【克隆远程版本库，重新命名主机】
+#克隆版本库的时候，所使用的远程主机自动被Git命名为origin。
+如果想用其他的主机名，需要用git clone命令的-o选项指定。
+例；
+$ git clone -o WeUI https://github.com/Tencent/weui.git
+$ git remote
+
+【合并远程分支】
+也可以使用git merge命令或者git rebase命令，在本地分支上合并远程分支。
+在当前分支上，合并origin/master。
+$ git merge origin/master
+# 或者
+$ git rebase origin/master
+
+【取回分支，并合并git pull】
+git pull命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并
+$ git pull <远程主机名> <远程分支名>:<本地分支名>
+例：$ git pull origin next:master
+上面命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做git fetch，再做git merge。
+tip:如果远程分支是与当前分支合并，则冒号后面的部分可以省略。如：
+	$ git pull origin next
+	
+【分支推送git push】
+格式：$ git push <远程主机名> <本地分支名>:<远程分支名>
+如果省略远程分支名，则表示将本地分支推送与之存在"追踪关系"的远程分支（通常两者同名），如果该远程分支不存在，则会被新建
+$ git push origin master
+
+如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略。
+$ git push origin
+
+如果是新建分支第一次push 输入：git push --set-upstream origin dev1
+以后的push就只需要输入git push origin
+
+如果当前分支只有一个追踪分支，那么主机名都可以省略。
+$ git push
+
+如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push。
+$ git push -u origin master
+上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了。
+
+不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用--all选项。
+$ git push --all origin
+
+强制推送，会导致远程主机上更新的版本被覆盖。
+$ git push --force origin 
+
+git push不会推送标签（tag），除非使用--tags选项。
+$ git push origin --tags
+
+【push.default可选值】
+nothing - push操作无效，除非显式指定远程分支，例如git push origin develop（我觉得。。。可以给那些不愿学git的同事配上此项）。
+current - push当前分支到远程同名分支，如果远程同名分支不存在则自动创建同名分支。
+upstream - push当前分支到它的upstream分支上（这一项其实用于经常从本地分支push/pull到同一远程仓库的情景，这种模式叫做central workflow）。
+simple - simple和upstream是相似的，只有一点不同，simple必须保证本地分支和它的远程upstream分支同名，否则会拒绝push操作。
+matching - push所有本地和远程两端都存在的同名分支。
+修改默认配置：
+$ git config --global push.default matching
+# 或者
+$ git config --global push.default simple
+
+【合并无从属广系的分支】
+git pull origin master --allow-unrelated-histories
+

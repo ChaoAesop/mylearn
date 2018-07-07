@@ -1,0 +1,39 @@
+﻿<!doctype html>
+<html ng-app>
+	<head>
+		<meta charset="utf-8">
+		<title>MVC 2：点击事件作用域</title>
+		<script type="text/javascript" src="js/angular-1.3.0.js"></script>
+		<script type="text/javascript">
+			function EventController($scope){
+				$scope.count = 0;
+				
+				/*注册事件*/
+				$scope.$on("myEvent",function(){
+					$scope.count++;
+				})
+			}
+		</script>
+	</head>
+	<body>
+		<div ng-controller="EventController">
+			<p>上count:{{count}}<p>
+			
+			<!--点击事件-->
+			<ul>
+				<li ng-controller="EventController">
+					<button ng-click="$emit('myEvent')">上中面递增1</button><br/>
+					中count:{{count}}
+				</li>
+				
+				<li>
+					<ul ng-controller="EventController">
+						<li><button ng-click="$broadcast('myEvent')">内部递增1</button></li>
+						<li ng-repeat="item in [1,2,3]">{{item}}内count:{{count}}</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	<body>
+	
+</html>

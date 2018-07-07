@@ -1,0 +1,17 @@
+String sql = "select " +
+                "l.landlord_name as loandlordName, " +
+                "l.landlord_phone as loandlordPhone, " +
+                "concat(" +
+                "   (select address_name from sys_address where address_pk=l.province), " +
+                "   (select address_name from sys_address where address_pk=l.city), " +
+                "   (select address_name from sys_address where address_pk=l.area) " +
+                ") as address " +
+                "from " +
+                "rent_landlord l " +
+                "where " +
+                "l.delete_flag='N'";
+        Query query = getEm().createNativeQuery(sql);
+		//÷ÿµ„”Ôæ‰
+        query.unwrap(SQLQuery.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+        List<Map<String,Object>> resultList = query.getResultList();
+        return resultList;

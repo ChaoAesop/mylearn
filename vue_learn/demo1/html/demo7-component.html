@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件之自定义监听事件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="example1">
+        <p>{{pcount}}</p>
+        <button-counter v-on:addParentCount="reAdd"></button-counter>
+        <button-counter v-on:addParentCount="reAdd"></button-counter>
+        <button-counter v-on:addParentCount="reAdd"></button-counter>
+
+        <hr>
+        <click-area v-on:click.native="showSomthing"></click-area>
+    </div>
+</body>
+
+<script src="../js/demo7-component.js"></script>
+</html>

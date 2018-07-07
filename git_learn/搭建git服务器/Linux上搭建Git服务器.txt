@@ -1,0 +1,20 @@
+1.安装git
+
+2.创建裸仓库
+	$ git --bare init poekoe.git
+
+3.把poekoe.git拷贝到 /opt/git/下，
+
+4现在，所有对该服务器有 SSH 访问权限，并可读取 /opt/git 目录的用户都可以用下面的命令克隆该项目：
+	$ git clone root@git.example.com:/opt/git/poekoe.git    说明：git clone <用户名>@<IP地址或域名>:裸仓库目录
+	
+5.在Linux上创建其他访问用户
+	$ useradd user1  创建用户user1
+	$ passwd  user1  给已创建的用户user1设置密码
+
+6.此时可以使用特定的用户访问，并克隆项目下来，例如：
+    $ git clone user1@git.example.com:/opt/git/poekoe.git
+
+7.普通用户的推送是不生效的，需要配置用户对仓库的写权限（更改文件夹的用户权限）
+	$ cd /opt/git
+	$ sudo chown -R user1 poekoe.git.git

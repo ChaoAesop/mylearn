@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>控制器传参</title>
+    <script type="text/javascript" src="../lib/angular1.3.0.14/angular.min.js"></script>
+    <script type="text/javascript">
+        var myApp = angular.module('myApp',[]);
+
+        myApp.controller('InputCtrl', ['$scope', function($scope) {
+            $scope.inputName = 'hello';
+            $scope.name;
+            $scope.showNamevFn = function (iname) {
+                $scope.name =iname;
+            }
+        }]);
+    </script>
+</head>
+<body>
+    <div ng-controller="InputCtrl">
+        <input ng-model="inputName"/> <button ng-click="showNamevFn(inputName)">点击</button>
+        <p>I'm {{name}} !!</p>
+    </div>
+</body>
+</html>

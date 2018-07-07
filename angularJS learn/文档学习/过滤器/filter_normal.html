@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器1</title>
+    <script type="text/javascript" src="../lib/angular1.3.0.14/angular.min.js"></script>
+    <script type="text/javascript" src="js/filter_normal.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="personCtrl">
+        <h4>日期格式化</h4>
+        <p>1490161945000 格式化后：{{1490161945000 | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+
+        <h4>转换大小写</h4>
+        <p>姓名为 {{lastname | uppercase}}</p>
+        <p>姓名为 {{lastname | lowercase}}</p>
+
+        <h4> currency 过滤器将数字格式化为货币格式：</h4>
+        <input type="number" ng-model="quantity">
+        <input type="number" ng-model="price">
+        <p>总价={{(quantity*price) | currency}}</p>
+        <p>转换为人民币:</p>
+        <p>250 -->  {{250 | currency:'结果：￥'}}</p>
+
+        <h4>向指令添加过滤器:循环名字</h4>
+        <p ng-repeat="x in names | orderBy:'country'">
+            {{x.name}},{{x.country}}
+        </p>
+
+        <h4>输入过滤</h4>
+        <input type="text" ng-model="keyword">
+        <p ng-repeat="x in names | filter:keyword | orderBy:'country'"><!--默认升序-->
+            {{x.name}},{{x.country}}
+        </p>
+
+        <h4>根id降序排</h4>
+        {{ [{"age": 20,"id": 10,"name": "iphone"},
+        {"age": 12,"id": 11,"name": "sunm xing"},
+        {"age": 44,"id": 12,"name": "test abc"}
+        ] | orderBy:'id':true }}
+
+        <h4>limitTo 截取</h4>
+        1234567890 <br>
+        前6位：{{"1234567890" | limitTo:6}} <br> <!--从前面开始截取6位-->
+        后四位：{{"1234567890" | limitTo:-4}}<!--从后面开始截取4位-->
+    </div>
+</body>
+</html>

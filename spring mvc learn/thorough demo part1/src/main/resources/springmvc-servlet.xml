@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<context:component-scan base-package="cn.chao" ></context:component-scan>
+
+	<!--<mvc:annotation-driven />-->
+	<!--手动配置代替<mvc:annotation-driven />-->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<!--方案三：注入拦截器-->
+		<property name="interceptors">
+			<list>
+				<bean class="cn.chao.interceptor.MyInterceptor"></bean>
+			</list>
+		</property>
+	</bean>
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+
+	</bean>
+
+	<!-- 视图解释类 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/"/>
+		<property name="suffix" value=".jsp"/><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  -->
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+	</bean>
+
+
+	<!--拦截器配置-->
+	<!--<mvc:interceptors>
+		方案一：（近似）总拦截器，拦截所有url
+		<bean class="cn.chao.interceptor.MyInterceptor" />
+
+		方案二：（近似） 总拦截器， 拦截匹配的URL。
+		<mvc:interceptor>
+			<mvc:mapping path="/user/*"/>
+			<bean class="cn.chao.interceptor.MyInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>-->
+
+
+	<!--静态资源配置-->
+	<!--<mvc:default-servlet-handler/>-->
+	<mvc:resources mapping="/image/**" location="/image/" cache-period="31556926"/>
+	<!--<mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>
+	<mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/>-->
+
+
+</beans>

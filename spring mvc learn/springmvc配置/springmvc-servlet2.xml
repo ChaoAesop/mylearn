@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:tx="http://www.springframework.org/schema/tx"  
+    xmlns:context="http://www.springframework.org/schema/context"    
+    xmlns:mvc="http://www.springframework.org/schema/mvc"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+    http://www.springframework.org/schema/tx   
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+    http://www.springframework.org/schema/mvc  
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">  
+  
+  
+    <!-- 
+		自动扫描的包名:
+		扫描指定的包中的类上的注解，常用的注解有：
+		@Controller 声明Action组件
+		@Service    声明Service组件    @Service("myMovieLister") 
+		@Repository 声明Dao组件
+		@Component   泛指组件, 当不好归类时. 
+		@RequestMapping("/menu")  请求映射
+		@Resource  用于注入，( j2ee提供的 ) 默认按名称装配，@Resource(name="beanName") 
+		@Autowired 用于注入，(srping提供的) 默认按类型装配 
+		@Transactional( rollbackFor={Exception.class}) 事务管理
+		@ResponseBody
+		@Scope("prototype")   设定bean的作用域 
+	--> 
+    <context:component-scan base-package="com.app,com.core,JUnit4" ></context:component-scan>  
+      
+    <!-- 
+		默认的注解映射的支持:
+		是一种简写形式，完全可以手动配置替代这种简写形式，简写形式可以让初学都快速应用默认配置方案。
+		<mvc:annotation-driven /> 会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 两个bean,
+		是spring MVC为@Controllers分发请求所必须的。
+		并提供了：数据绑定支持，@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson）。
+	-->  
+    <mvc:annotation-driven />
+      
+    <!-- 视图解释类 -->  
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+        <property name="prefix" value="/WEB-INF/jsp/"/>  
+        <property name="suffix" value=".jsp"/><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  -->  
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />  
+    </bean>  
+      
+    <!-- 
+		拦截器:
+		 是一种简写形式。我们可以配置多个HandlerMapping。
+		 <mvc:interceptors/>会为每一个HandlerMapping，注入一个拦截器。
+		 其实我们也可以手动配置为每个HandlerMapping注入一个拦截器。
+	-->  
+    <mvc:interceptors>
+		<!--方案一：（近似）总拦截器，拦截所有url-->
+		<!--<bean class="cn.chao.interceptor.MyInterceptor" />-->
+
+		<!--方案二：（近似） 总拦截器， 拦截匹配的URL。-->
+		<mvc:interceptor>
+			<mvc:mapping path="/user/*"/>
+			<bean class="cn.chao.interceptor.MyInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>    
+      
+	  
+	  
+	  
+	  
+	  
+	  
+	<!-- 配置对静态资源的访问是为了解决：
+		如何你的DispatcherServlet拦截"*.do"这样的有后缀的URL，就不存在访问不到静态资源的问题。
+		如果你的DispatcherServlet拦截"/"，为了实现REST风格，拦截了所有的请求，那么同时对*.js,*.jpg等静态文件的访问也就被拦截了。
+		我们要解决这个问题。
+	-->
+	
+	
+    <!-- 对静态资源文件的访问  方案一 （二选一）使用默认的Servlet来响应静态文件。 -->  
+    <mvc:default-servlet-handler/>  
+      
+    <!-- 对静态资源文件的访问  方案二 （二选一）-->  
+	<!--
+		解析：
+		/images/**映射到ResourceHttpRequestHandler进行处理，
+		location指定静态资源的位置.可以是web application根目录下、jar包里面，
+		这样可以把静态资源压缩到jar包中。cache-period 可以使得静态资源进行web cache 
+	-->  
+    <mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>  
+    <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>  
+    <mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/>  
+  
+</beans> 

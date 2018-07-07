@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+</head>
+<body>
+    <!--【watch属性监听器，用计算属性优化】-->
+    <div id="app-1">
+        <p>{{fullName}}</p>
+        <input type="text" v-model="firstName   ">
+        <input type="text" v-model="lastName">
+    </div>
+    <!--优化版-->
+    <hr>
+    <div id="app-2">
+        <p>{{fullName}}</p>
+        <input type="text" v-model="firstName   ">
+        <input type="text" v-model="lastName">
+    </div>
+
+    <!--【计算属性的 setter】-->
+    <div id="app-3">
+        <p>{{fullName}}</p>
+        <input type="text" v-model="fullName">
+    </div>
+
+    <!--
+        【侦听器】
+        当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的。
+        需要引入：
+            <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    -->
+    <hr>
+    <div>
+        <div id="watch-example">
+            <p>
+                Ask a yes/no question:
+                <input v-model="question">
+            </p>
+            <p>{{ answer }}</p>
+        </div>
+    </div>
+</body>
+<script src="../js/demo3-watch.js"></script>
+</html>

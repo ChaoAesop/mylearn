@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令</title>
+    <script src="../lib/angular1.3.0.14/angular.min.js"></script>
+    <!--<script src="js/dire.js"></script>-->
+    <script src="js/dire2.js"></script>
+</head>
+<body ng-app="MyModule2">
+    <!-- 指令的第一种模式 E -->
+    <hello></hello>
+    <!-- 指令的第二种模式 A -->
+    <div hello></div>
+    <!-- 指令的第三种模式 C -->
+    <p class="hello"></p>
+    <!-- 指令的第四种模式 M(注解)-->
+    <!-- directive:hello -->
+    <div></div>
+
+    <br>
+    <!--保留原标签内容-->
+    <info>
+        <div>我是要显示的</div>
+    </info>
+</body>
+</html>

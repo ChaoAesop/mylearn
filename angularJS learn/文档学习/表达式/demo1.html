@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/angular1.3.0.14/angular.min.js"></script>
+</head>
+<body ng-app="">
+    <div ng-init="firstName='John';lastName='Don'">
+        <p>姓名:<span ng-bind="firstName +' '+lastName"></span></p>
+    </div>
+
+    <div ng-init="person={firstName:'鸡腿',lastName:'肥猫'}">
+        <p>姓名：<span ng-bind="person.firstName"></span> </p>
+    </div>
+    <div ng-init="points=[1,15,19,2,40]">
+
+        <p>第三个值为 {{ points[2] }}</p>
+
+    </div>
+
+    <div ng-app="" ng-init="points=[1,15,19,2,40]">
+
+        <p>第三个值为 <span ng-bind="points[2]"></span></p>
+
+    </div>
+</body>
+</html>

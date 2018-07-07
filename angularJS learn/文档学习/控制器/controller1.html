@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../lib/angular1.3.0.14/angular.min.js"></script>
+    <script type="text/javascript">
+        var myApp = angular.module('myApp',[]);
+
+        myApp.controller('DoubleCtrl', ['$scope', function($scope) {
+            $scope.num = 0;
+            $scope.double = function(value) {
+                //alert(value * 2);
+                return value * 2;
+            };
+        }]);
+    </script>
+</head>
+<body>
+    <div ng-controller="DoubleCtrl">
+        <input ng-model="double(num)"> 翻倍后等于 <span ng-bind=""></span>
+    </div>
+</body>
+</html>

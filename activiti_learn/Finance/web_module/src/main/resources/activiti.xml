@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- Activiti引擎配置 -->
+    <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+        <property name="dataSource" ref="dataSource" />
+        <property name="transactionManager" ref="txManager" />
+        <!-- 设置数据库schema的更新方式 -->
+        <property name="databaseSchemaUpdate" value="true" />
+        <!-- 是否启动jobExecutor -->
+        <property name="jobExecutorActivate" value="false" />
+        <!--<property name="deploymentResources"
+                  value="classpath:com/taofangt/workflow/*.bpmn" />-->
+        <!--解决图片乱码问题-->
+        <property name="activityFontName" value="宋体"></property>
+        <property name="labelFontName" value="微软雅黑"></property>
+    </bean>
+
+    <!-- 流程引擎 -->
+    <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+        <property name="processEngineConfiguration" ref="processEngineConfiguration" />
+    </bean>
+    <bean id="repositoryService" factory-bean="processEngine"
+          factory-method="getRepositoryService" />
+    <bean id="runtimeService" factory-bean="processEngine"
+          factory-method="getRuntimeService" />
+    <bean id="taskService" factory-bean="processEngine"
+          factory-method="getTaskService" />
+    <bean id="historyService" factory-bean="processEngine"
+          factory-method="getHistoryService" />
+    <bean id="managementService" factory-bean="processEngine"
+          factory-method="getManagementService" />
+    <bean id="IdentityService" factory-bean="processEngine"
+          factory-method="getIdentityService" />
+
+</beans>

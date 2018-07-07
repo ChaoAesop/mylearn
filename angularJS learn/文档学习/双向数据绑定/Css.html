@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据绑定方式更换样式</title>
+    <script src="../lib/angular1.3.0.14/angular.min.js"></script>
+    <script src="js/Css.js"></script>
+    <link rel="stylesheet" href="css/Css.css">
+</head>
+<body ng-app="CssModule">
+    <div ng-controller="CssController">
+        <h4 class="text-{{color}}">测试样式的变化</h4>
+        <button ng-click="changeBg()">点击</button>
+    </div>
+</body>
+</html>

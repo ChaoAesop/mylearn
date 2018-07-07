@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的记事本</title>
+    <script src="../lib/angular.js"></script>
+</head>
+<body ng-app="myNoteApp">
+    <div ng-controller="myNoteCtrl">
+        <h2>我的笔记</h2>
+
+        <p><textarea ng-keyup="check()" ng-model="message" cols="40" rows="10"></textarea></p>
+
+        <p>
+            <button ng-click="save()">保存</button>
+            <button ng-click="clear()">清除</button>
+        </p>
+
+        <!--
+            ng-bind 指令告诉 AngularJS 使用给定的变量或表达式的值来替换 HTML 元素的内容。
+            如果给定的变量或表达式修改了，指定替换的 HTML 元素也会修改。
+        -->
+        <p>剩余字数：<span ng-bind="left()"></span></p>
+    </div>
+</body>
+<script src="js/note.js"></script>
+</html>

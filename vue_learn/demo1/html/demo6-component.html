@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuejs起步第一例</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="component1">
+        <my-component></my-component>
+
+        <child-component></child-component>
+        <hr>
+        <p>
+            <simple-counter></simple-counter>
+            <simple-counter></simple-counter>
+            <simple-counter></simple-counter>
+            <simple-counter></simple-counter>
+        </p>
+        <hr>
+        <p>
+            <input type="text" v-model="inLove" placeholder="输入我的最爱">
+            <!--<child message="hello" v-bind:my-love="inLove"></child>-->
+            <!--<child message="hello" :my-love="inLove"></child>-->
+            <!--<child v-bind="todo"></child> 绑定对象的所有属性-->
+            <child v-bind:number="1"></child><!--传递真正的数字，而不是一个字符串   -->
+        </p>
+        <hr>
+        <p>
+            <complex-counter size="15" tests="true"></complex-counter>
+        </p>
+        <p>
+            <my-form prop-a="123"></my-form>
+        </p>
+    </div>
+</body>
+
+<script src="../js/demo6-component.js"></script>
+</html>

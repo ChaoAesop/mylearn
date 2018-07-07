@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> css与Style绑定</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app-1">
+        <!--普通用法-->
+        <div class="static" v-bind:class="{active:isActive, 'text-danger':isError}">右键审查元素</div>
+
+        <!--可以不必内联在html里-->
+        <div v-bind:class="classObj">
+            右键审查元素2
+        </div>
+
+        <!--应用计算属性，这是一个常用且强大的模式-->
+        <div v-bind:class="classCondition">
+            右键审查元素3
+        </div>
+
+        <!--可以把一个数组传给 v-bind:class-->
+
+        <!--对象语法，绑定style-->
+        <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">哈哈哈</div>
+    </div>
+</body>
+<script src="../js/demo4-cssAndStyle.js"></script>
+</html>

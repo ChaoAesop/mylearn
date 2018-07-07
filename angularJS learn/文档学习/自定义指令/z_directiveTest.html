@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+		自定义指令测试
+	</title>
+    <script src="../lib/angular1.3.0.14/angular.js"></script>
+    <script>
+        angular.module("myApp",[]).controller("MyCtrl",["$scope","$rootScope",function ($scope,$rootScope) {
+            var global = $scope.global={
+				age:999,
+				name:'超'
+			};
+			console.info(global);
+            $rootScope.myfun=function(){
+                console.info('我是父');
+            };
+        }]).directive("curday",function ($rootScope) {
+            return {
+                restrict: "E",
+				scope:{
+					aaa:'='
+				},
+                template: '<div >2017年8月10日</br>姓名：{{aaa.name}}  年龄：{{aaa.age}}</div>',
+                replace: true,
+				link: function (scope, element, attrs) {
+                    console.info(111);
+                    $rootScope.myfun();
+                }
+            }
+        });
+
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="MyCtrl">
+    <curday aaa="global"></curday>
+	
+</body>
+</html>

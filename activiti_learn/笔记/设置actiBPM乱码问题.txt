@@ -1,0 +1,4 @@
+找到idea安装目录bin目录下
+分别编辑文件：idea.exe.vmoptions、idea64.exe.vmoptions
+在文件末尾添加 -Dfile.encoding=UTF-8 ，
+然后重启idea，再打开流程图就会发现中文已经可以正常显示了。

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染、列表渲染</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+<body>
+    <div id="app-1">
+        <p v-if="ok">可以的</p>
+        <p v-else>NO</p>
+
+        <hr>
+        <!--包裹元素template,渲染完之后将不包含template元素-->
+        <template v-if="ok">
+            <p>哈哈</p>
+            <span>呵呵呵</span>
+        </template>
+    </div>
+
+    <div id="app-2">
+        <template v-if="loginType === 'username'">
+            <label>Username</label>
+            <input placeholder="Enter your username" key="username-input">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email address" key="email-input">
+        </template>
+        <br>
+        <button @click='toggleBtn()'>点击更换</button>
+    </div>
+
+    <hr>
+    <div id="app-3">
+        <p v-for="(value, index) in items">
+            <span>{{index}}. {{value.bookName+' ￥'+value.price}}</span>
+        </p>
+        <button @click="filterItem()">过滤</button>
+        <br>
+        <input type="text" v-model="price" placeholder="输入第一本书的价格">
+        <button @click="changeValue()">更改第一本书的价格</button>
+    </div>
+
+    <hr>
+    <div id="app-4">
+        <!--<input type="text" v-model="b">-->
+        <button @click="addMethods()">显示</button>
+        <p v-if="yes">
+            {{b.name}}：{{b.age}}
+            <input type="text" v-model="b.age">
+        </p>
+    </div>
+
+    <hr>
+    <div id="app-5">
+        {{numbers}} <br>
+        过滤出偶数：<span v-for="v in evenNumbers"> {{v}} </span>
+
+    </div>
+
+</body>
+<script src="../js/demo5-ConditionalAndRendering.js"></script>
+</html>
